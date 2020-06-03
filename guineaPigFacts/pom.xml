@@ -8,14 +8,14 @@
 		<version>2.3.0.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.guineaPigFacts</groupId>
-	<artifactId>demo</artifactId>
+	<groupId>com.factsdemo</groupId>
+	<artifactId>guineaPigFacts</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
-	<description>Guinea Pig Facts Project with Spring Boot</description>
+	<name>guineaPigFacts</name>
+	<description>Guinea Pig Facts project for Spring Boot</description>
 
 	<properties>
-		<java.version>10</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 
 	<dependencies>
@@ -50,11 +50,6 @@
 					<artifactId>junit-vintage-engine</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>de.flapdoodle.embed</groupId>
-			<artifactId>de.flapdoodle.embed.mongo</artifactId>
-			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
