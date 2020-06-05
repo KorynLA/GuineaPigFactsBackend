@@ -7,7 +7,7 @@ public class Fact {
     private String factId;
     private String factValue;
     private Date dateCreated;
-    private Boolean approved;
+    private boolean approved;
 
     /**
      * Empty constructor needed for new instance, the default constructor.
@@ -39,11 +39,11 @@ public class Fact {
     }
 
     /**
-     * Setter for appoved in object
+     * Setter for approved in object
      * Parameters: Boolean
      * Return: None
      */
-    public void setApproved(Boolean approved) {
+    public void setApproved(boolean approved) {
         this.approved = approved;
     }
 
@@ -61,7 +61,7 @@ public class Fact {
      * Parameters: None
      * Return: Boolean
      */
-    public Boolean getApproved() {
+    public boolean getApproved() {
         return approved;
     }
 
