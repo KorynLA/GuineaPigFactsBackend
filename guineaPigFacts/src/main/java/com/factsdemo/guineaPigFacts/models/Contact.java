@@ -1,9 +1,10 @@
 package com.factsdemo.guineaPigFacts.models;
 import org.springframework.data.annotation.Id;
-
+@Document
 public class Contact {
     @Id
     private String id;
+    @Indexed(unique = true)
     private String email;
     private boolean dailyUpdate;
 

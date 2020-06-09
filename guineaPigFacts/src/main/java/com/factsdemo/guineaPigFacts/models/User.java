@@ -1,6 +1,7 @@
 package com.factsdemo.guineaPigFacts.models;
 import org.springframework.data.annotation.Id;
 import java.util.List;
+@Document
 public class User {
     @Id
     private String id;
