@@ -1,7 +1,8 @@
 package com.factsdemo.guineaPigFacts.models;
 import org.springframework.data.annotation.Id;
 import java.util.List;
-@Document
+
+//Class is mapped to the "user" MongoDB collection
 public class User {
     @Id
     private String id;
@@ -22,11 +23,11 @@ public class User {
      * Sets all values of object to new instance values
      * Return: None
      */
-    public User(String userName, String password, Contact contactInfo, Fact factGiven) {
+    public User(String userName, String password, Contact contactInfo, List<Fact> factGiven) {
         this.userName = userName;
         this.password = password;
         this.contactInfo = contactInfo;
-        this.facts = factGiven;
+        this.facts=factGiven;
     }
 
     /**

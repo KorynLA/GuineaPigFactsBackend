@@ -1,11 +1,11 @@
 package com.factsdemo.guineaPigFacts.models;
 import org.springframework.data.annotation.Id;
 import java.util.Date;
-@Document
+
+//Class is mapped to the "fact" MongoDB collection
 public class Fact {
     @Id
     private String factId;
-    @Indexed(unique = true)
     private String factValue;
     private Date dateCreated;
     private boolean approved;
