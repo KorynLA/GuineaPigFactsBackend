@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
  * Calls a UserRepository object which will run the data access calls.
  */
 @Service
-public class UserServiceImplementation {
+public class UserService {
     private UserRepository userRepository;
 
     void deleteUser(String id) {
@@ -23,7 +23,7 @@ public class UserServiceImplementation {
         return userRepository.findByUserName(userName);
     }
 
-    User findByEmail(String email) {
-        return userRepository.findByEmail(email);
+    User findByContact_Email(String email) {
+        return userRepository.findByContactInfo_Email(email);
     }
-}
+ }

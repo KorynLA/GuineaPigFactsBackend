@@ -60,4 +60,5 @@ public class Contact {
     public boolean isDailyUpdate() {
         return dailyUpdate;
     }
+    public String getId() {return id;}
 }

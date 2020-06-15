@@ -1,21 +1,24 @@
 package com.factsdemo.guineaPigFacts.services;
+
 import com.factsdemo.guineaPigFacts.models.Contact;
 import com.factsdemo.guineaPigFacts.repositories.ContactRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 /***
  * Implements the business logic needed for the Contact part of the API.
  * Calls a ContactRepository object which will run the data access calls.
  */
 @Service
-public class ContactServiceImplementation {
+public class ContactService {
     private ContactRepository contactRepository;
 
-    Contact findById(String id){
-        return contactRepository.findByContactId(id);
+    Optional<Contact> findById(String id){
+        return contactRepository.findById(id);
     }
 
-    Contact findByEmail(String email){
+    Optional<Contact> findByEmail(String email){
         return contactRepository.findByEmail(email);
     }
 

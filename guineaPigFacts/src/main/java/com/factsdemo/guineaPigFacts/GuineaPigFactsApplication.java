@@ -13,7 +13,7 @@ public class GuineaPigFactsApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(GuineaPigFactsApplication.class, args);
 	}
-
+/*
 	//Web endpoint that has 1 parameter. When parameter isn't given, default value is world.
 	@GetMapping("/hello")
 	public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
@@ -24,4 +24,6 @@ public class GuineaPigFactsApplication {
 	public String facts() {
 		return "facts";
 	}
+
+ */
 }

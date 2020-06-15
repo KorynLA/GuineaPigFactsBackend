@@ -1,16 +1,19 @@
 package com.factsdemo.guineaPigFacts.services;
+
 import com.factsdemo.guineaPigFacts.models.Fact;
 import com.factsdemo.guineaPigFacts.repositories.FactRepository;
-import org.springframework.data.repository.query.Param;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.List;
+
+import java.util.Optional;
 
 /***
  * Implements the business logic needed for the Fact part of the API.
  * Calls a FactRepository object which will run the data access calls.
  */
 @Service
-public class FactServiceImplementation {
+public class FactService {
+    @Autowired
     private FactRepository factRepository;
 
     void deleteFact(Fact fact){
@@ -21,11 +24,12 @@ public class FactServiceImplementation {
         factRepository.save(fact);
     }
 
-    List<Fact> findAll(){
+    Optional<Fact> findAll(){
         return factRepository.findAllOrderByDateCreated();
     }
 
-    Fact findByFactId(@Param("id") String factId){
-        return factRepository.findByFactId(factId);
+    public Optional<Fact> findById(String id) {
+        return factRepository.findById(id);
     }
+
 }
