@@ -1,7 +1,10 @@
 package com.factsdemo.guineaPigFacts.services;
 import com.factsdemo.guineaPigFacts.models.User;
 import com.factsdemo.guineaPigFacts.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 /***
  * Implements the business logic needed for the User part of the API.
@@ -9,21 +12,25 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserService {
+    @Autowired
     private UserRepository userRepository;
 
-    void deleteUser(String id) {
+    public void deleteUser(String id) {
         userRepository.deleteById(id);
     }
 
-    void saveOrUpdateUser(User user) {
+    public void saveOrUpdateUser(User user) {
         userRepository.save(user);
     }
 
-    User findByUserName(String userName) {
+    public User findByUserName(String userName) {
         return userRepository.findByUserName(userName);
     }
 
-    User findByContact_Email(String email) {
+    public User findByContact_Email(String email) {
         return userRepository.findByContactInfo_Email(email);
+    }
+    public Optional<User> findById(String id) {
+        return userRepository.findById(id);
     }
  }

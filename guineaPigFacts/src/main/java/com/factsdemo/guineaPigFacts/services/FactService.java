@@ -5,6 +5,7 @@ import com.factsdemo.guineaPigFacts.repositories.FactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /***
@@ -16,16 +17,17 @@ public class FactService {
     @Autowired
     private FactRepository factRepository;
 
-    void deleteFact(Fact fact){
-        factRepository.delete(fact);
+    public void delete(String id){
+        factRepository.deleteById(id);
     }
 
-    void saveOrUpdateFact(Fact fact){
+    public void saveOrUpdateFact(Fact fact){
         factRepository.save(fact);
     }
 
-    Optional<Fact> findAll(){
-        return factRepository.findAllOrderByDateCreated();
+    public List<Fact> findAll(){
+        if(factRepository.findAll().size() == 0) { throw new IllegalArgumentException("The list is empty"); }
+        return factRepository.findAll();
     }
 
     public Optional<Fact> findById(String id) {

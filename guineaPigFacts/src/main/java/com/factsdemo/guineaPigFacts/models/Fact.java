@@ -1,16 +1,18 @@
 package com.factsdemo.guineaPigFacts.models;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 //Class is mapped to the "fact" MongoDB collection
-@Document
+@Document(collection = "Fact")
 public class Fact {
     @Id
     private String id;
     private String factValue;
-    private Date dateCreated;
+    private String dateCreated;
     private boolean approved;
 
     /**
@@ -29,7 +31,10 @@ public class Fact {
      */
     public Fact(String factValue) {
         this.factValue = factValue;
-        dateCreated = new Date();
+        Date today = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        String strDate = formatter.format(today);
+        dateCreated = strDate;
         approved = false;
     }
 
@@ -56,7 +61,7 @@ public class Fact {
      * Parameters: None
      * Return: Date object
      */
-    public Date getDateCreated() {
+    public String getDateCreated() {
         return dateCreated;
     }
 

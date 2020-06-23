@@ -4,7 +4,8 @@ import com.factsdemo.guineaPigFacts.models.Fact;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import java.util.Date;
+import java.util.List;
 
 /***
  * Implements the operations in FactRepository by extending to the MongoRepository
@@ -12,5 +13,5 @@ import java.util.Optional;
  ***/
 @Repository
 public interface FactRepository extends MongoRepository<Fact, String> {
-    Optional<Fact> findAllOrderByDateCreated();
+    List<Fact> findByDateCreated(Date date);
 }

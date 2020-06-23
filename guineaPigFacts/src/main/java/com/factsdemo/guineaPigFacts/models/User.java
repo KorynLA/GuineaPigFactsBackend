@@ -1,15 +1,15 @@
 package com.factsdemo.guineaPigFacts.models;
 import org.springframework.data.annotation.Id;
-import java.util.List;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 //Class is mapped to the "user" MongoDB collection
+@Document(collection = "User")
 public class User {
     @Id
     private String id;
     private String userName;
     private String password;
     private Contact contactInfo;
-    private List<Fact> facts;
 
     /**
      * Empty constructor needed for new instance, the default constructor.
@@ -23,11 +23,10 @@ public class User {
      * Sets all values of object to new instance values
      * Return: None
      */
-    public User(String userName, String password, Contact contactInfo, List<Fact> factGiven) {
+    public User(String userName, String password, Contact contactInfo) {
         this.userName = userName;
         this.password = password;
         this.contactInfo = contactInfo;
-        this.facts=factGiven;
     }
 
     /**
@@ -57,14 +56,6 @@ public class User {
         return contactInfo;
     }
 
-    /**
-     * Getter for Fact list array in object
-     * Parameters: None
-     * Return: Array of Fact objects
-     */
-    public List<Fact> getFacts() {
-        return facts;
-    }
 
     /**
      * Setter for password in object
@@ -75,12 +66,5 @@ public class User {
         this.password = password;
     }
 
-    /**
-     * Setter to add another fact to the Fact array
-     * Parameters: Fact object
-     * Return: None
-     */
-    public void setFacts(Fact factGiven) {
-        facts.add(factGiven);
-    }
+
 }

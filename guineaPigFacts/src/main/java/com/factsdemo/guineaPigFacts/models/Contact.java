@@ -1,10 +1,7 @@
 package com.factsdemo.guineaPigFacts.models;
-import org.springframework.data.annotation.Id;
-
 //Class is mapped to the "contact" MongoDB collection, will be embedded into user collection.
 public class Contact {
-    @Id
-    private String id;
+
     private String email;
     private boolean dailyUpdate;
 
@@ -60,5 +57,4 @@ public class Contact {
     public boolean isDailyUpdate() {
         return dailyUpdate;
     }
-    public String getId() {return id;}
 }
