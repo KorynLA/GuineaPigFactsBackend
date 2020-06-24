@@ -66,5 +66,14 @@ public class User {
         this.password = password;
     }
 
+    /**
+     * Setter for userName in object
+     * Parameters: String userName
+     * Return: None
+     */
+    public void setUserName(String userName) {this.userName = userName; }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 }

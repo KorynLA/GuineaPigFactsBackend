@@ -4,6 +4,7 @@ import com.factsdemo.guineaPigFacts.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /***
@@ -30,7 +31,18 @@ public class UserService {
     public User findByContact_Email(String email) {
         return userRepository.findByContactInfo_Email(email);
     }
+    public Optional<User> getCurrentUser(String id) {
+        return userRepository.findById(id);
+    }
     public Optional<User> findById(String id) {
         return userRepository.findById(id);
+    }
+
+    public User update(User user) {
+        return userRepository.save(user);
+
+    }
+    public List<User> findAll(){
+        return userRepository.findAll();
     }
  }

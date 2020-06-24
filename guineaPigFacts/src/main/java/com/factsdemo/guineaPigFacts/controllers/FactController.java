@@ -20,10 +20,12 @@ public class FactController {
     public Optional<Fact> findById(@PathVariable("id") String id) {
         return factService.findById(id);
     }
+
     @GetMapping("/")
     public List<Fact> findAll() {
         return factService.findAll();
     }
+
     @PostMapping("/add")
     public ResponseEntity<?> saveOrUpdate(@RequestBody Fact fact) {
         factService.saveOrUpdateFact(fact);
