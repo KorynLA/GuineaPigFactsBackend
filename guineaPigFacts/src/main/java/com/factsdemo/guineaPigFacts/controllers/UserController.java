@@ -10,6 +10,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+/*
+ * Rest endpoints
+ * GET /user/
+ ** Retrieves all users in the User collection
+ * GET /user/{id}
+ ** Retrieves user with the ID passed in the URL path
+ * POST /user/add
+ ** Adds a user to the User collection
+ * PUT /user/update/{id}
+ ** Updates a document in the User collection with the ID passed in the URL path
+ * DELETE /user/delete/{id}
+ ** Deletes a document with the ID passed in the URL path
+ */
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -40,17 +54,7 @@ public class UserController {
 
     @PutMapping("/update/{id}")
     User replaceUser(@PathVariable("id") String id, @RequestBody User newUser) {
-        return userService.findById(id)
-                .map(user -> {
-                    user.setUserName(newUser.getUserName());
-            user.setPassword(newUser.getPassword());
-            user.getContactInfo().setEmail(newUser.getContactInfo().getEmail());
-            user.getContactInfo().setDailyUpdate(newUser.getContactInfo().isDailyUpdate());
-            return userService.update(user);
-        }).orElseGet(() -> {
-                    newUser.setId(id);
-                    return userService.update(newUser);
-                });
+        return userService.updateUser(id, newUser);
     }
 
 }

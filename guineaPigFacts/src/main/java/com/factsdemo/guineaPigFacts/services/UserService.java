@@ -13,6 +13,7 @@ import java.util.Optional;
  */
 @Service
 public class UserService {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -31,18 +32,36 @@ public class UserService {
     public User findByContact_Email(String email) {
         return userRepository.findByContactInfo_Email(email);
     }
+
     public Optional<User> getCurrentUser(String id) {
         return userRepository.findById(id);
     }
+
     public Optional<User> findById(String id) {
         return userRepository.findById(id);
     }
 
     public User update(User user) {
         return userRepository.save(user);
-
     }
+
     public List<User> findAll(){
         return userRepository.findAll();
+    }
+
+    public User updateUser(String id, User newUser) {
+        userRepository.findById(id)
+                .map(user -> {
+                    user.setUserName(newUser.getUserName());
+                    user.setPassword(newUser.getPassword());
+                    user.getContactInfo().setEmail(newUser.getContactInfo().getEmail());
+                    user.getContactInfo().setDailyUpdate(newUser.getContactInfo().isDailyUpdate());
+                    return userRepository.save(user);
+                })
+                .orElseGet(() -> {
+                    newUser.setId(id);
+                    return userRepository.save(newUser);
+                });
+        return newUser;
     }
  }

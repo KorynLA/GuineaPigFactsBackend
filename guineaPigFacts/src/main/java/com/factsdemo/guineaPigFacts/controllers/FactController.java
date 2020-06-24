@@ -10,6 +10,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+/*
+* Rest endpoints
+* GET /fact/
+** Retrieves all facts in the Fact collection
+* GET /fact/{id}
+** Retrieves fact with the ID passed in the URL path
+* POST /fact/add
+** Adds a fact to the Fact collection
+* DELETE /fact/delete/{id}
+** Deletes a document with the ID passed in the URL path
+*/
+
 @RestController
 @RequestMapping("/fact")
 public class FactController {
