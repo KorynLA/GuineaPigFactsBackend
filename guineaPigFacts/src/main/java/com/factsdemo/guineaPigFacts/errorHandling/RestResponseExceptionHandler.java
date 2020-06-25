@@ -5,7 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
+/*
+ * Exception class handler that returns corresponding responses to errors thrown in the controller classes
+ */
 @RestControllerAdvice
 public class RestResponseExceptionHandler {
     @ExceptionHandler(EmptyCollectionException.class)
