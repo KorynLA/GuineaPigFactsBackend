@@ -1,5 +1,7 @@
 package com.factsdemo.guineaPigFacts.controllers;
 
+import com.factsdemo.guineaPigFacts.errorHandling.EmptyCollectionException;
+import com.factsdemo.guineaPigFacts.errorHandling.IdNotFoundException;
 import com.factsdemo.guineaPigFacts.models.Fact;
 import com.factsdemo.guineaPigFacts.services.FactService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 /*
 * Rest endpoints
@@ -29,25 +30,32 @@ public class FactController {
     private FactService factService;
 
     @GetMapping("/{id}")
-    public Optional<Fact> findById(@PathVariable("id") String id) {
-        return factService.findById(id);
+    public Fact findById(@PathVariable("id") String id)  {
+        Fact fact = factService.findById(id).orElseThrow(() -> new IdNotFoundException(id, "Fact"));
+        return fact;
     }
-
-    @GetMapping("/")
-    public List<Fact> findAll() {
-        return factService.findAll();
+    @GetMapping(value = {"", "/", "/home"})
+    public List<Fact> findAll() throws EmptyCollectionException {
+        List<Fact> facts = factService.findAll();
+        if(facts.isEmpty()) {
+            throw new EmptyCollectionException("facts");
+        }
+        else {
+            return facts;
+        }
     }
 
     @PostMapping("/add")
     public ResponseEntity<?> saveOrUpdate(@RequestBody Fact fact) {
         factService.saveOrUpdateFact(fact);
-        return new ResponseEntity<String>("Added",HttpStatus.OK);
+        return new ResponseEntity<String>("Added", HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") String id) {
+    public ResponseEntity<?> delete(@PathVariable("id") String id) throws IdNotFoundException {
+        factService.findById(id).orElseThrow(() -> new IdNotFoundException(id, "Fact"));
         factService.delete(id);
-        return new ResponseEntity<String>("Added",HttpStatus.OK);
+        return new ResponseEntity<String>("Deleted", HttpStatus.OK);
     }
 
 }

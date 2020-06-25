@@ -1,5 +1,7 @@
 package com.factsdemo.guineaPigFacts.controllers;
 
+import com.factsdemo.guineaPigFacts.errorHandling.EmptyCollectionException;
+import com.factsdemo.guineaPigFacts.errorHandling.IdNotFoundException;
 import com.factsdemo.guineaPigFacts.models.User;
 import com.factsdemo.guineaPigFacts.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 /*
  * Rest endpoints
@@ -30,14 +31,19 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/")
-    public List<User> displayUser() {
-        return userService.findAll();
+    @GetMapping(value = {"/", ""})
+    public List<User> displayUser() throws EmptyCollectionException {
+        List<User> users = userService.findAll();
+        if(users.isEmpty()) {
+            throw new EmptyCollectionException("User");
+        }
+        return users;
     }
 
     @GetMapping("/{id}")
-    Optional<User> getCurrentUser(@PathVariable("id") String id) {
-        return userService.findById(id);
+    User getCurrentUser(@PathVariable("id") String id) {
+        User user = userService.findById(id).orElseThrow(() -> new IdNotFoundException(id, "User"));
+        return user;
     }
 
     @PostMapping("/add")
@@ -48,6 +54,7 @@ public class UserController {
 
     @DeleteMapping("/delete/{id}")
     ResponseEntity<String>  deleteUser(@PathVariable String id){
+        User user = userService.findById(id).orElseThrow(() -> new IdNotFoundException(id, "User"));
         userService.deleteUser(id);
         return new ResponseEntity<String>("Removed", HttpStatus.OK);
     }
