@@ -1,5 +1,5 @@
 # Guinea Pig Facts
-A project that allows users to create an account, add a guinea pig fact, and opt in to receive weekly facts. 
+An API that allows users to create an account, add a guinea pig fact, and opt in to receive weekly facts. 
 
 # Getting Started
 
@@ -15,5 +15,35 @@ A project that allows users to create an account, add a guinea pig fact, and opt
 2. cd /guineapigfacts
 3. Run ./mvnw spring-boot:run
 
+# Endpoints
+## /user
+  - /user/
+    - GET
+    - Retrieves all users in the User collection
+  - /user/{id}
+    - GET
+    - Retrieves user with the ID passed in the URL path
+  - /user/add
+    - POST
+    - Adds a user to the User collection
+  - /user/update/{id}
+    - PUT
+    - Updates a document in the User collection with the ID passed in the URL path
+  - /user/delete/{id}
+    - DELETE
+    - Deletes a document with the ID passed in the URL path
+## /fact
+  - /fact/
+    - GET
+    - Retrieves all facts in the Fact collection
+  - /fact/{id}
+    - GET
+    - Retrieves fact with the ID passed in the URL path
+  - /fact/add
+    - POST
+    - Adds a fact to the Fact collection
+  - /fact/delete/{id}
+    - DELETE
+    - Deletes a document with the ID passed in the URL path
 # Tools Used
 Spring Boot with the data loaded to and from a MongoDB Atlas database.
