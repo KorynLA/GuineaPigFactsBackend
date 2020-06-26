@@ -1,5 +1,7 @@
 package com.factsdemo.guineaPigFacts.models;
+
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 //Class is mapped to the "user" MongoDB collection
@@ -7,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User {
     @Id
     private String id;
+    @Indexed(unique = true)
     private String userName;
     private String password;
     private Contact contactInfo;

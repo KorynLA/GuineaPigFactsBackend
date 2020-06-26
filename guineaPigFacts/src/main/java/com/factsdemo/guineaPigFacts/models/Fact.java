@@ -73,5 +73,13 @@ public class Fact {
     public boolean getApproved() {
         return approved;
     }
+    /**
+    * Setter used to update ID for testing
+     * Parmater: String id that is unique
+     * Return: None
+     ***/
+    public void setId(String id) {
+        this.id = id;
+    }
 
 }
