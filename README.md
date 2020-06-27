@@ -23,7 +23,12 @@ An API that allows users to create an account, add a guinea pig fact, and opt in
   - If using MongoDB local
     - cd /\<pwd>/guineaPigFacts/src/main/resources
     - Update application.properties with database name you want to save the data in line 7: spring.data.mongodb.database=<YOUR_DATABASE>
-## Deployment<a name="deployment"></a>
+## Local Deployment<a name="deployment"></a>
+1. Have mongoDB instance running
+  - Locally
+    - Open a new shell and run the command: [mongo](https://docs.mongodb.com/manual/mongo/#start-the-mongo-shell-and-connect-to-mongodb)
+  - MongoDB Atlas
+    - Should already be running. The system status can be checked [here](https://status.cloud.mongodb.com/)
 2. cd /guineapigfacts
 3. Run ./mvnw spring-boot:run
 
