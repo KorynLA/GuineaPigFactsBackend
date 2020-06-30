@@ -17,38 +17,72 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Deletes the User from the database with no return value
+     * @param id as a String
+     */
     public void deleteUser(String id) {
         userRepository.deleteById(id);
     }
 
+    /**
+     * Adds the new user to the database with no return value
+     * @param User object
+     */
     public void saveOrUpdateUser(User user) {
         userRepository.save(user);
     }
 
+    /**
+     * Finds the User document that is being searched for by its userName
+     * @param userName as a String
+     * @return the User object
+     */
     public User findByUserName(String userName) {
         return userRepository.findByUserName(userName);
     }
 
+    /**
+     * Finds the User document based on the embedded contact_info document
+     * @param email as a String
+     * @return the User object
+     */
     public User findByContact_Email(String email) {
         return userRepository.findByContactInfo_Email(email);
     }
 
+    /**
+     * Finds the User associated with an id if it exists, will be used for JWT
+     * @param id as a String
+     * @return an Optional User -- a Null value can be returned if no document with the id was found
+     */
     public Optional<User> getCurrentUser(String id) {
         return userRepository.findById(id);
     }
 
+    /**
+     * Finds the User associated with an id if it exists
+     * @param id as a String
+     * @return an Optional User -- a Null value can be returned if no document with the id was found
+     */
     public Optional<User> findById(String id) {
         return userRepository.findById(id);
     }
 
-    public User update(User user) {
-        return userRepository.save(user);
-    }
-
+    /**
+     * Finds all Users in the MongoDB database
+     * @return List of the Users
+     */
     public List<User> findAll(){
         return userRepository.findAll();
     }
 
+    /**
+     * Updates a User if found by id, else inserts the User document into the database
+     * @param id as a String
+     * @param newUser as a User object
+     * @return the User that was added to the database
+     */
     public User updateUser(String id, User newUser) {
         userRepository.findById(id)
                 .map(user -> {
