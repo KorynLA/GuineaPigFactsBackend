@@ -26,9 +26,6 @@ public class FactService {
     }
 
     public List<Fact> findAll(){
-        if(factRepository.findAll().size() == 0) {
-            throw new IllegalArgumentException("The list is empty");
-        }
         return factRepository.findAll();
     }
 

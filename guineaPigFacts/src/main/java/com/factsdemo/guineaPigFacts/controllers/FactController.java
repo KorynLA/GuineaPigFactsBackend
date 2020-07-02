@@ -1,6 +1,5 @@
 package com.factsdemo.guineaPigFacts.controllers;
 
-import com.factsdemo.guineaPigFacts.errorHandling.EmptyCollectionException;
 import com.factsdemo.guineaPigFacts.errorHandling.IdNotFoundException;
 import com.factsdemo.guineaPigFacts.models.Fact;
 import com.factsdemo.guineaPigFacts.services.FactService;
@@ -9,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -35,13 +35,17 @@ public class FactController {
         return fact;
     }
     @GetMapping(value = {"", "/", "/home"})
-    public List<Fact> findAll() throws EmptyCollectionException {
+    public ResponseEntity<?>  findAll() throws Exception {
         List<Fact> facts = factService.findAll();
         if(facts.isEmpty()) {
-            throw new EmptyCollectionException("facts");
+            return new ResponseEntity<String>("There are no facts", HttpStatus.OK);
         }
         else {
-            return facts;
+            List<String> factVal = new ArrayList<String>();
+            for(Fact fact : facts) {
+                factVal.add(fact.getFactValue());
+            }
+            return new ResponseEntity<List<String>>(factVal, HttpStatus.OK);
         }
     }
 
