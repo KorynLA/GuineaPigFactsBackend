@@ -4,7 +4,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-//Class is mapped to the "user" MongoDB collection
+/**
+ * Model for the User document.
+ * Class has Contact object embedded.
+ */
 @Document(collection = "User")
 public class User {
     @Id
@@ -59,7 +62,6 @@ public class User {
         return contactInfo;
     }
 
-
     /**
      * Setter for password in object
      * Parameters: String password. Will be 8 characters long minimum.
@@ -76,6 +78,10 @@ public class User {
      */
     public void setUserName(String userName) {this.userName = userName; }
 
+    /**
+     * Setter for Id in object
+     * @param id as String
+     */
     public void setId(String id) {
         this.id = id;
     }

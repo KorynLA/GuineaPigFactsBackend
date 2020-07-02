@@ -75,7 +75,7 @@ public class Fact {
     }
     /**
     * Setter used to update ID for testing
-     * Parmater: String id that is unique
+     * @param id String that is unique
      * Return: None
      ***/
     public void setId(String id) {

@@ -7,6 +7,17 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  * Spring MongoDB creates the implementation when the application is ran
  ***/
 public interface UserRepository extends MongoRepository<User, String> {
+    /**
+     * Finds the User collection by its userName
+     * @param userName as a String
+     * @return User
+     */
     User findByUserName(String userName);
+
+    /**
+     * Finds the User associated with an email
+     * @param email as a String
+     * @return User
+     */
     User findByContactInfo_Email(String email);
 }

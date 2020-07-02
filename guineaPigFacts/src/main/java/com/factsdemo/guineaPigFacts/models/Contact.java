@@ -1,5 +1,8 @@
 package com.factsdemo.guineaPigFacts.models;
-//Class is mapped to the "contact" MongoDB collection, will be embedded into user collection.
+/**
+ * Model for the Contact object.
+ * Class is  embedded in User collection.
+ */
 public class Contact {
 
     private String email;

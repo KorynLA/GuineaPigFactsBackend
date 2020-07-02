@@ -13,5 +13,10 @@ import java.util.List;
  ***/
 @Repository
 public interface FactRepository extends MongoRepository<Fact, String> {
+    /**
+     * Finds Fact collections by the date they were created
+     * @param date as a Date object
+     * @return List<Fact>
+     */
     List<Fact> findByDateCreated(Date date);
 }
