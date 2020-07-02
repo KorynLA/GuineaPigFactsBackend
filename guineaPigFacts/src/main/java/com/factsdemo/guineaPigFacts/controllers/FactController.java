@@ -45,13 +45,13 @@ public class FactController {
         }
     }
 
-    @PostMapping("/add")
+    @PostMapping("/")
     public ResponseEntity<?> saveOrUpdate(@RequestBody Fact fact) {
         factService.saveOrUpdateFact(fact);
         return new ResponseEntity<String>("Added", HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable("id") String id) throws IdNotFoundException {
         factService.findById(id).orElseThrow(() -> new IdNotFoundException(id, "Fact"));
         factService.delete(id);

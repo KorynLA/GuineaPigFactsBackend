@@ -46,20 +46,20 @@ public class UserController {
         return user;
     }
 
-    @PostMapping("/add")
+    @PostMapping("/")
     ResponseEntity<String> addUser(@RequestBody User user) {
         userService.saveOrUpdateUser(user);
         return new ResponseEntity<String>("Added", HttpStatus.OK);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     ResponseEntity<String>  deleteUser(@PathVariable String id){
         User user = userService.findById(id).orElseThrow(() -> new IdNotFoundException(id, "User"));
         userService.deleteUser(id);
         return new ResponseEntity<String>("Removed", HttpStatus.OK);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     User replaceUser(@PathVariable("id") String id, @RequestBody User newUser) {
         return userService.updateUser(id, newUser);
     }
