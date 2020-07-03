@@ -52,7 +52,7 @@ public class FactController {
     @PostMapping("/")
     public ResponseEntity<?> saveOrUpdate(@RequestBody Fact fact) {
         factService.saveOrUpdateFact(fact);
-        return new ResponseEntity<String>("Added", HttpStatus.OK);
+        return new ResponseEntity<String>("Added", HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")

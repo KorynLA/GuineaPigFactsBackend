@@ -36,7 +36,7 @@ public class UserController {
     @PostMapping("/")
     ResponseEntity<String> addUser(@RequestBody User user) {
         userService.saveOrUpdateUser(user);
-        return new ResponseEntity<String>("Added", HttpStatus.OK);
+        return new ResponseEntity<String>("Added", HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
