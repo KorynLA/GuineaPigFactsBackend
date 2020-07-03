@@ -34,9 +34,6 @@ An API that allows users to create an account, add a guinea pig fact, and opt in
 
 ## Endpoints<a name="endpoints"></a>
 ### /user
-  - /user/
-    - GET
-    - Retrieves all users in the User collection
   - /user/{id}
     - GET
     - Retrieves user with the ID passed in the URL path
