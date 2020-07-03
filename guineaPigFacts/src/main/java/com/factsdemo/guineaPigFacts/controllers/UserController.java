@@ -2,12 +2,11 @@ package com.factsdemo.guineaPigFacts.controllers;
 
 import com.factsdemo.guineaPigFacts.errorHandling.IdNotFoundException;
 import com.factsdemo.guineaPigFacts.models.User;
-import com.factsdemo.guineaPigFacts.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import com.factsdemo.guineaPigFacts.services.UserService;
 /*
  * Rest endpoints
  * GET /user/
