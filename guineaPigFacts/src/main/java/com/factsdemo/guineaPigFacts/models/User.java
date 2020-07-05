@@ -4,6 +4,11 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 /**
  * Model for the User document.
  * Class has Contact object embedded.
@@ -11,10 +16,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "User")
 public class User {
     @Id
+    @Pattern(regexp = "^[0-9a-fA-F]{24}$")
     private String id;
+    @NotEmpty
+    @Size(min = 4, max = 20)
     @Indexed(unique = true)
     private String userName;
+    @NotEmpty
+    @Size(min = 8)
     private String password;
+    @Valid
     private Contact contactInfo;
 
     /**

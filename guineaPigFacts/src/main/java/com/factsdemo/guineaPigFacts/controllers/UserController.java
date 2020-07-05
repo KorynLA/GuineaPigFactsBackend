@@ -2,11 +2,13 @@ package com.factsdemo.guineaPigFacts.controllers;
 
 import com.factsdemo.guineaPigFacts.errorHandling.IdNotFoundException;
 import com.factsdemo.guineaPigFacts.models.User;
+import com.factsdemo.guineaPigFacts.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.factsdemo.guineaPigFacts.services.UserService;
+
+import javax.validation.Valid;
 /*
  * Rest endpoints
  * GET /user/
@@ -34,7 +36,7 @@ public class UserController {
     }
 
     @PostMapping("/")
-    ResponseEntity<String> addUser(@RequestBody User user) {
+    ResponseEntity<String> addUser(@Valid @RequestBody User user) {
         userService.saveOrUpdateUser(user);
         return new ResponseEntity<String>("Added", HttpStatus.CREATED);
     }
@@ -47,7 +49,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    User replaceUser(@PathVariable("id") String id, @RequestBody User newUser) {
+    User replaceUser(@PathVariable("id") String id, @Valid @RequestBody User newUser) {
         return userService.updateUser(id, newUser);
     }
 

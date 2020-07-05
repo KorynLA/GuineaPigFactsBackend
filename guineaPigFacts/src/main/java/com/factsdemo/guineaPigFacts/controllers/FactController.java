@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class FactController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<?> saveOrUpdate(@RequestBody Fact fact) {
+    public ResponseEntity<?> saveOrUpdate(@Valid @RequestBody Fact fact) {
         factService.saveOrUpdateFact(fact);
         return new ResponseEntity<String>("Added", HttpStatus.CREATED);
     }

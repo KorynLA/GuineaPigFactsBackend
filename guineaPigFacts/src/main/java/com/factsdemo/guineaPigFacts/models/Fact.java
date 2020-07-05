@@ -3,6 +3,10 @@ package com.factsdemo.guineaPigFacts.models;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -10,9 +14,15 @@ import java.util.Date;
 @Document(collection = "Fact")
 public class Fact {
     @Id
+    @Pattern(regexp = "^[0-9a-fA-F]{24}$")
     private String id;
+    @NotEmpty
+    @Size(min = 8)
+    @Pattern(regexp = ".*\\s.*")
     private String factValue;
+    @Pattern(regexp = "^[0-3][0-9]/[0-3][0-9]/(?:[0-9][0-9])?[0-9][0-9]$")
     private String dateCreated;
+    @NotNull
     private boolean approved;
 
     /**
@@ -29,13 +39,13 @@ public class Fact {
      * to current day
      * Return: None
      */
-    public Fact(String factValue) {
+    public Fact(String factValue, boolean approved) {
         this.factValue = factValue;
         Date today = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("mm/dd/yyyy");
         String strDate = formatter.format(today);
         dateCreated = strDate;
-        approved = false;
+        this.approved = approved;
     }
 
     /**

@@ -1,11 +1,21 @@
 package com.factsdemo.guineaPigFacts.models;
+
+import org.springframework.data.mongodb.core.index.Indexed;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 /**
  * Model for the Contact object.
  * Class is  embedded in User collection.
  */
 public class Contact {
-
+    @Email
+    @NotEmpty
+    @Indexed(unique = true)
     private String email;
+    @NotNull
     private boolean dailyUpdate;
 
     /**
