@@ -36,7 +36,7 @@ public class FactController {
         return fact;
     }
     @GetMapping(value = {"", "/", "/home"})
-    public ResponseEntity<?>  findAll() throws Exception {
+    public ResponseEntity<?>  findAll() {
         List<Fact> facts = factService.findAll();
         if(facts.isEmpty()) {
             return new ResponseEntity<String>("There are no facts", HttpStatus.OK);

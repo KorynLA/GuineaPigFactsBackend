@@ -36,7 +36,12 @@ public class UserController {
     }
 
     @PostMapping("/")
-    ResponseEntity<String> addUser(@Valid @RequestBody User user) {
+    ResponseEntity<String> addUser(@Valid @RequestBody User user) throws Exception{
+        User foundEmail = userService.findByContact_Email(user.getContactInfo().getEmail());
+        User foundUserName = userService.findByUserName(user.getUserName());
+        if(foundEmail != null || foundUserName != null) {
+            throw new Exception("Cannot add non unique user!");
+        }
         userService.saveOrUpdateUser(user);
         return new ResponseEntity<String>("Added", HttpStatus.CREATED);
     }
@@ -49,8 +54,9 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    User replaceUser(@PathVariable("id") String id, @Valid @RequestBody User newUser) {
-        return userService.updateUser(id, newUser);
+    ResponseEntity<String> replaceUser(@PathVariable("id") String id, @Valid @RequestBody User newUser) {
+        User user = userService.findById(id).orElseThrow(() -> new IdNotFoundException(id, "User"));
+        return new ResponseEntity<String>("User Updated", HttpStatus.OK);
     }
 
 }

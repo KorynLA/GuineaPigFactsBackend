@@ -23,7 +23,6 @@ public class UserServiceImplementation implements UserService {
         userRepository.deleteById(id);
     }
 
-
     public void saveOrUpdateUser(User user) {
         userRepository.save(user);
     }
@@ -56,10 +55,6 @@ public class UserServiceImplementation implements UserService {
                     user.getContactInfo().setEmail(newUser.getContactInfo().getEmail());
                     user.getContactInfo().setDailyUpdate(newUser.getContactInfo().isDailyUpdate());
                     return userRepository.save(user);
-                })
-                .orElseGet(() -> {
-                    newUser.setId(id);
-                    return userRepository.save(newUser);
                 });
         return newUser;
     }
