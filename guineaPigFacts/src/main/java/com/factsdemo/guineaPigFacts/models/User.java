@@ -20,10 +20,12 @@ public class User {
     private String id;
     @NotEmpty
     @Size(min = 4, max = 20)
+    @Pattern(regexp = "^[a-zA-Z0-9_]*$")
     @Indexed(unique = true)
     private String userName;
     @NotEmpty
     @Size(min = 8)
+    @Pattern(regexp = ".*\\d.*")
     private String password;
     @Valid
     private Contact contactInfo;
