@@ -1,6 +1,7 @@
 package com.factsdemo.guineaPigFacts.controllers;
 
 import com.factsdemo.guineaPigFacts.errorHandling.IdNotFoundException;
+import com.factsdemo.guineaPigFacts.errorHandling.UserFoundException;
 import com.factsdemo.guineaPigFacts.models.User;
 import com.factsdemo.guineaPigFacts.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,11 +37,12 @@ public class UserController {
     }
 
     @PostMapping("/")
-    ResponseEntity<String> addUser(@Valid @RequestBody User user) throws Exception{
-        User foundEmail = userService.findByContact_Email(user.getContactInfo().getEmail());
-        User foundUserName = userService.findByUserName(user.getUserName());
-        if(foundEmail != null || foundUserName != null) {
-            throw new Exception("Cannot add non unique user!");
+    ResponseEntity<String> addUser(@Valid @RequestBody User user) {
+        if(userService.findByContact_Email(user.getContactInfo().getEmail()) != null) {
+            throw new UserFoundException("email", user.getContactInfo().getEmail());
+        }
+        if(userService.findByUserName(user.getUserName()) != null) {
+            throw new UserFoundException("username", user.getUserName());
         }
         userService.saveOrUpdateUser(user);
         return new ResponseEntity<String>("Added", HttpStatus.CREATED);

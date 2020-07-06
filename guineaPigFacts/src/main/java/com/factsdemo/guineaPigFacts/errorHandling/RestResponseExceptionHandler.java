@@ -15,4 +15,10 @@ public class RestResponseExceptionHandler {
     protected ResponseEntity<Object> handleBadId(IdNotFoundException ex) {
         return new ResponseEntity(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(UserFoundException.class)
+    @ResponseBody
+    protected ResponseEntity<Object> handleNonUniqueUser(UserFoundException ex) {
+        return new ResponseEntity(ex.getMessage(), HttpStatus.METHOD_NOT_ALLOWED);
+    }
 }
