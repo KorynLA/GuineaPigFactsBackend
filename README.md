@@ -37,13 +37,13 @@ An API that allows users to create an account, add a guinea pig fact, and opt in
   - /user/{id}
     - GET
     - Retrieves user with the ID passed in the URL path
-  - /user/add
+  - /user/
     - POST
     - Adds a user to the User collection
-  - /user/update/{id}
+  - /user/{id}
     - PUT
     - Updates a document in the User collection with the ID passed in the URL path
-  - /user/delete/{id}
+  - /user/{id}
     - DELETE
     - Deletes a document with the ID passed in the URL path
 ### /fact
@@ -53,10 +53,10 @@ An API that allows users to create an account, add a guinea pig fact, and opt in
   - /fact/{id}
     - GET
     - Retrieves fact with the ID passed in the URL path
-  - /fact/add
+  - /fact/
     - POST
     - Adds a fact to the Fact collection
-  - /fact/delete/{id}
+  - /fact/{id}
     - DELETE
     - Deletes a document with the ID passed in the URL path
 ## Tools Used<a name="toolsUsed"></a>
