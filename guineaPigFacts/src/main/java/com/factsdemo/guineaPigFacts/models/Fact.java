@@ -10,7 +10,10 @@ import javax.validation.constraints.Size;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-//Class is mapped to the "fact" MongoDB collection
+/**
+ * Class is mapped to the "fact" MongoDB collection
+ */
+
 @Document(collection = "Fact")
 public class Fact {
     @Id
@@ -34,10 +37,9 @@ public class Fact {
 
     /**
      * Constructor that will be called to create the new instance with parameters.
-     * Parameters: factValue, dateCreated, given with a form
+     * @param factValue, dateCreated, given with a form
      * Sets all values of object to new instance values. "approved" is defaulted to false. "dateCreated" is defaulted
      * to current day
-     * Return: None
      */
     public Fact(String factValue, boolean approved) {
         this.factValue = factValue;
@@ -50,8 +52,7 @@ public class Fact {
 
     /**
      * Getter for factValue in object
-     * Parameters: None
-     * Return: String
+     * @return factValue as a String
      */
     public String getFactValue() {
         return factValue;
@@ -59,8 +60,7 @@ public class Fact {
 
     /**
      * Setter for approved in object
-     * Parameters: Boolean
-     * Return: None
+     * @param approved as a boolean
      */
     public void setApproved(boolean approved) {
         this.approved = approved;
@@ -68,8 +68,7 @@ public class Fact {
 
     /**
      * Getter for dateCreated in object
-     * Parameters: None
-     * Return: Date object
+     * @return dateCreated as a String
      */
     public String getDateCreated() {
         return dateCreated;
@@ -77,8 +76,7 @@ public class Fact {
 
     /**
      * Getter for approved in object
-     * Parameters: None
-     * Return: Boolean
+     * @return Boolean
      */
     public boolean getApproved() {
         return approved;

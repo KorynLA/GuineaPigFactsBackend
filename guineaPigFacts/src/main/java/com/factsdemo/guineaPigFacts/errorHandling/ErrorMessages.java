@@ -2,9 +2,15 @@ package com.factsdemo.guineaPigFacts.errorHandling;
 
 import java.util.HashMap;
 
+/**
+ * Class that contains maps error messages in HashMap. Lets other classes retrieve the messages from the HashMap.
+ */
 public class ErrorMessages {
     private HashMap<String, String> pattern;
 
+    /**
+     * Default constructor that inserts the error messages and the String they map to
+     */
     public ErrorMessages() {
         pattern = new HashMap<String, String>();
         pattern.put("id", "Id provided is not viable. Id field need 12 bytes");
@@ -16,6 +22,11 @@ public class ErrorMessages {
         pattern.put("contactInfo.dailyUpdate", "Do you want to be updated? Daily update is boolean (true / false).");
     }
 
+    /**
+     * Gets the error message mapped from the key "message"
+     * @param message
+     * @return error message as a String
+     */
     public String getMessage(String message) {
         return pattern.get(message);
     }

@@ -38,9 +38,8 @@ public class User {
 
     /**
      * Constructor that will be called to create the new instance with parameters.
-     * Parameters: userName, password, contactInfo, factGiven
+     * @param userName, password, contactInfo, factGiven
      * Sets all values of object to new instance values
-     * Return: None
      */
     public User(String userName, String password, Contact contactInfo) {
         this.userName = userName;
@@ -50,8 +49,7 @@ public class User {
 
     /**
      * Getter for userName in object
-     * Parameters: None
-     * Return: String
+     * @return String userName
      */
     public String getUserName() {
         return userName;
@@ -59,8 +57,7 @@ public class User {
 
     /**
      * Getter for password in object
-     * Parameters: None
-     * Return: String
+     * @return String password
      */
     public String getPassword() {
         return password;
@@ -68,8 +65,7 @@ public class User {
 
     /**
      * Getter for Contact object
-     * Parameters: None
-     * Return: Contact
+     * @return Contact
      */
     public Contact getContactInfo() {
         return contactInfo;
@@ -77,8 +73,7 @@ public class User {
 
     /**
      * Setter for password in object
-     * Parameters: String password. Will be 8 characters long minimum.
-     * Return: None
+     * @param  password as a String. Will be 8 characters long minimum.
      */
     public void setPassword(String password) {
         this.password = password;
@@ -86,8 +81,7 @@ public class User {
 
     /**
      * Setter for userName in object
-     * Parameters: String userName
-     * Return: None
+     * @param userName
      */
     public void setUserName(String userName) {this.userName = userName; }
 
