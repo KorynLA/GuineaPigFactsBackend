@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,6 +33,7 @@ public class FactController {
      * Retrieves fact with the ID passed in the URL path
      * @param id as a String
      * @return Fact object
+     * @throws IdNotFoundException
      */
     @GetMapping("/{id}")
     public Fact findById(@PathVariable("id") String id)  {
@@ -43,7 +43,7 @@ public class FactController {
 
     /**
      * Retrieves all facts in the Fact collection
-     * @return ResponseEntity with a message and the HttpStatus
+     * @return ResponseEntity with List<Fact> and the HttpStatus
      */
     @GetMapping(value = {"", "/", "/home"})
     public ResponseEntity<?>  findAll() {
@@ -51,13 +51,7 @@ public class FactController {
         if(facts.isEmpty()) {
             return new ResponseEntity<String>("There are no facts", HttpStatus.OK);
         }
-        else {
-            List<String> factVal = new ArrayList<String>();
-            for(Fact fact : facts) {
-                factVal.add(fact.getFactValue());
-            }
-            return new ResponseEntity<List<String>>(factVal, HttpStatus.OK);
-        }
+            return new ResponseEntity<List<Fact>>(facts, HttpStatus.OK);
     }
 
     /**
