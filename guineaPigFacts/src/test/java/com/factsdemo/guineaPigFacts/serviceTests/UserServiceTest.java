@@ -40,6 +40,7 @@ public class UserServiceTest {
     private final String email = "testEmail@gmail.com";
     private final boolean dailyUpdate = false;
     private final String id = "100000";
+    private final String id2 = "100002";
     private User user;
     private Contact contactInfo;
 
@@ -75,8 +76,18 @@ public class UserServiceTest {
      * Test to verify user can be found by id
      */
     @Test
+    public void userFindByIdNullTest() {
+        Mockito.when(userRepository.findById(id2)).thenReturn(null);
+        Optional<User> found = userService.findById(id2);
+        assertNull(found);
+    }
+
+    /**
+     * Test to verify user is found
+     */
+    @Test
     public void userFindByIdTest() {
-        Mockito.when(userRepository.findById(user.getId())).thenReturn(java.util.Optional.ofNullable(user));
+        Mockito.when(userRepository.findById(user.getId())).thenReturn(Optional.ofNullable(user));
         Optional<User> found = userService.findById(id);
         assertTrue(found.isPresent());
     }
@@ -89,6 +100,16 @@ public class UserServiceTest {
         Mockito.when(userRepository.findByUserName(user.getUserName())).thenReturn(user);
         User found = userService.findByUserName(username);
         assertNotNull(found);
+    }
+
+    /**
+     * Test to verify null user is found from username not in database
+     */
+    @Test
+    public void findByUsernameNullTest() {
+        Mockito.when(userRepository.findByUserName(usernameTest1)).thenReturn(null);
+        User found = userService.findByUserName(usernameTest1);
+        assertNull(found);
     }
 
     /**
