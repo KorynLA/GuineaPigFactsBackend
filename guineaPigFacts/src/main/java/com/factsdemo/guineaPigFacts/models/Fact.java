@@ -1,12 +1,16 @@
 package com.factsdemo.guineaPigFacts.models;
 
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * Class is mapped to the "fact" MongoDB collection
@@ -15,15 +19,13 @@ import javax.validation.constraints.Size;
 @Document(collection = "Fact")
 public class Fact {
     @Id
-    @Pattern(regexp = "^[0-9a-fA-F]{24}$")
+    @Pattern(regexp = "^[0-9a-fA-F]{24}$", message = "Id provided is not viable. Needs to be longer.")
     private String id;
     @NotEmpty
     @Size(min = 8)
-    @Pattern(regexp = ".*\\s.*")
+    @Pattern(regexp = ".*\\s.*", message = "Fact provided needs at least 8 characters and a space.")
     private String factValue;
-    @NotNull
-    @Pattern(regexp = "^[0-3][0-9]/[0-3][0-9]/(?:[0-9][0-9])?[0-9][0-9]$")
-    private String dateCreated;
+    private Date dateCreated = new Date();
     @NotNull
     private boolean approved;
 
@@ -36,13 +38,12 @@ public class Fact {
 
     /**
      * Constructor that will be called to create the new instance with parameters.
-     * @param factValue, dateCreated, given with a form
+     * @param factValue
      * Sets all values of object to new instance values. "approved" is defaulted to false. "dateCreated" is defaulted
      * to current day
      */
-    public Fact(String factValue, boolean approved, String dateCreated) {
+    public Fact(String factValue, boolean approved) {
         this.factValue = factValue;
-        this.dateCreated = dateCreated;
         this.approved = approved;
     }
 
@@ -66,9 +67,15 @@ public class Fact {
      * Getter for dateCreated in object
      * @return dateCreated as a String
      */
-    public String getDateCreated() {
+    public Date getDateCreated() {
         return dateCreated;
     }
+
+    /**
+     * Setter for dateCreated in object
+     * @param date
+     */
+    public void setDateCreated(Date date) { dateCreated = date; }
 
     /**
      * Getter for approved in object
@@ -77,6 +84,7 @@ public class Fact {
     public boolean getApproved() {
         return approved;
     }
+
     /**
     * Setter used to update ID for testing
      * @param id String that is unique
@@ -85,6 +93,11 @@ public class Fact {
     public void setId(String id) {
         this.id = id;
     }
+
+    /**
+     * Getter for id from object
+     * @return id as a String
+     */
     public String getId() {
         return id;
     }

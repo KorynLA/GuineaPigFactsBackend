@@ -22,7 +22,7 @@ public class FactServiceImplementation implements FactService {
         factRepository.deleteById(id);
     }
 
-    public void saveOrUpdateFact(Fact fact){
+    public void saveFact(Fact fact){
         factRepository.save(fact);
     }
 

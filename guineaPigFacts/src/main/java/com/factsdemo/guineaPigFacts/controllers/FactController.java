@@ -48,21 +48,32 @@ public class FactController {
     @GetMapping(value = {"", "/", "/home"})
     public ResponseEntity<?>  findAll() {
         List<Fact> facts = factService.findAll();
-        if(facts.isEmpty()) {
-            return new ResponseEntity<String>("There are no facts", HttpStatus.OK);
-        }
-            return new ResponseEntity<List<Fact>>(facts, HttpStatus.OK);
+        return new ResponseEntity<List<Fact>>(facts, HttpStatus.OK);
     }
 
     /**
      * Adds a fact to the Fact collection
      * @param fact as a Fact object
-     * @return ResponseEntity with a message and the HttpStatus
+     * @return ResponseEntity with the fact and the HttpStatus
      */
     @PostMapping("/")
     public ResponseEntity<?> saveOrUpdate(@Valid @RequestBody Fact fact) {
-        factService.saveOrUpdateFact(fact);
-        return new ResponseEntity<String>("Added", HttpStatus.CREATED);
+        factService.saveFact(fact);
+        return new ResponseEntity<Fact>(fact, HttpStatus.CREATED);
+    }
+
+    /**
+     * Updates a fact in the Fact collection
+     * @param updatedFact as a Fact object
+     * @param id as a String
+     * @return ResponseEntity with the updated fact and the HttpStatus
+     */
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable("id") String id, @Valid @RequestBody Fact updatedFact) {
+        factService.findById(id).orElseThrow(() -> new IdNotFoundException(id, "fact"));
+        updatedFact.setId(id);
+        factService.saveFact(updatedFact);
+        return new ResponseEntity<Fact>(updatedFact, HttpStatus.OK);
     }
 
     /**

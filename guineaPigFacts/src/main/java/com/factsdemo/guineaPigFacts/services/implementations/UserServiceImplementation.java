@@ -23,7 +23,7 @@ public class UserServiceImplementation implements UserService {
         userRepository.deleteById(id);
     }
 
-    public void saveOrUpdateUser(User user) {
+    public void saveUser(User user) {
         userRepository.save(user);
     }
 

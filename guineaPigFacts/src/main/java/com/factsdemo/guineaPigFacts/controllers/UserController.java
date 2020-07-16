@@ -7,6 +7,7 @@ import com.factsdemo.guineaPigFacts.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -45,15 +46,15 @@ public class UserController {
      * @return ResponseEntity with a message and the HttpStatus
      */
     @PostMapping("/")
-    ResponseEntity<String> addUser(@Valid @RequestBody User user) {
+    ResponseEntity<?> addUser(@Valid @RequestBody User user) {
         if(userService.findByContact_Email(user.getContactInfo().getEmail()) != null) {
             throw new UserFoundException("email", user.getContactInfo().getEmail());
         }
         if(userService.findByUserName(user.getUserName()) != null) {
             throw new UserFoundException("username", user.getUserName());
         }
-        userService.saveOrUpdateUser(user);
-        return new ResponseEntity<String>("Added", HttpStatus.CREATED);
+        userService.saveUser(user);
+        return new ResponseEntity<User>(user, HttpStatus.CREATED);
     }
 
     /**
@@ -71,13 +72,14 @@ public class UserController {
     /**
      * Updates a document in the User collection with the ID passed in the URL path
      * @param id
-     * @param newUser a User object
-     * @return ResponseEntity with a message and the HttpStatus
+     * @param updatedUser a User object
+     * @return ResponseEntity with the updated User and the HttpStatus
      */
     @PutMapping("/{id}")
-    ResponseEntity<String> replaceUser(@PathVariable("id") String id, @Valid @RequestBody User newUser) {
+    ResponseEntity<?> replaceUser(@PathVariable("id") String id, @Valid @RequestBody User updatedUser) {
         User user = userService.findById(id).orElseThrow(() -> new IdNotFoundException(id, "User"));
-        return new ResponseEntity<String>("User Updated", HttpStatus.OK);
+        userService.updateUser(id, updatedUser);
+        return new ResponseEntity<User>(updatedUser, HttpStatus.OK);
     }
 
 }

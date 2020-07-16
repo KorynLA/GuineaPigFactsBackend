@@ -15,7 +15,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  */
 @RestControllerAdvice
 public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler {
-    private ErrorMessages errorMessages= new ErrorMessages();
 
     /**
      * Method called when IdNotFoundException is thrown
@@ -39,16 +38,4 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
         return new ResponseEntity(ex.getMessage(), HttpStatus.METHOD_NOT_ALLOWED);
     }
 
-    /**
-     * Overriden method called when handleMethodArgumentNotValid is thrown
-     * @param ex
-     * @param headers
-     * @param status
-     * @param request
-     * @return ResponseEntity<Object> where object is the default message and HttpStatus code
-     */
-    @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
-        return new ResponseEntity(errorMessages.getMessage(ex.getBindingResult().getFieldError().getField()), status);
-    }
 }
