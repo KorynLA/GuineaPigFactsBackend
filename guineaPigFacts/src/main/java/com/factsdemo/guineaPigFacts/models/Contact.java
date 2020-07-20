@@ -11,11 +11,11 @@ import javax.validation.constraints.NotNull;
  * Class is  embedded in User collection.
  */
 public class Contact {
-    @Email
+    @Email(message = "Email provided is not in correct format.")
     @NotEmpty
     @Indexed(unique = true)
     private String email;
-    @NotNull
+    @NotNull(message = "Do you want to be updated? Daily update is boolean (true / false).")
     private boolean dailyUpdate;
 
     /**

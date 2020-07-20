@@ -16,7 +16,7 @@ public interface FactService {
      * Updates or creates a new Fact based on the Fact provided. Nothing is returned
      * @param fact as a Fact object
      */
-    public void saveOrUpdateFact(Fact fact);
+    public void saveFact(Fact fact);
 
     /**
      * Returns all of the facts that are in the database.

@@ -14,9 +14,9 @@ public interface UserService {
 
     /**
      * Adds the new user to the database with no return value
-     * @param User object
+     * @param user as a User object
      */
-    public void saveOrUpdateUser(User user);
+    public void saveUser(User user);
 
     /**
      * Finds the User document that is being searched for by its userName

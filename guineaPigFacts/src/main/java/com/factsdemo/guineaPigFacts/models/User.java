@@ -16,16 +16,16 @@ import javax.validation.constraints.Size;
 @Document(collection = "User")
 public class User {
     @Id
-    @Pattern(regexp = "^[0-9a-fA-F]{24}$")
+    @Pattern(regexp = "^[0-9a-fA-F]{24}$", message = "Id provided is not viable. Needs to be longer.")
     private String id;
     @NotEmpty
     @Size(min = 4, max = 20)
-    @Pattern(regexp = "^[a-zA-Z0-9_]*$")
+    @Pattern(regexp = "^[a-zA-Z0-9_]*$", message = "Username provided does not meet standards. Username should have between 4-20 characters and only allows letters, numbers, and underscores.")
     @Indexed(unique = true)
     private String userName;
     @NotEmpty
     @Size(min = 8)
-    @Pattern(regexp = ".*\\d.*")
+    @Pattern(regexp = ".*\\d.*", message = "Password provided does not meet standards. Needs at least 1 number and 8 characters.")
     private String password;
     @Valid
     private Contact contactInfo;
