@@ -1,11 +1,21 @@
 package com.factsdemo.guineaPigFacts.models;
-import org.springframework.data.annotation.Id;
 
-//Class is mapped to the "contact" MongoDB collection, will be embedded into user collection.
+import org.springframework.data.mongodb.core.index.Indexed;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+/**
+ * Model for the Contact object.
+ * Class is  embedded in User collection.
+ */
 public class Contact {
-    @Id
-    private String id;
+    @Email(message = "Email provided is not in correct format.")
+    @NotEmpty
+    @Indexed(unique = true)
     private String email;
+    @NotNull(message = "Do you want to be updated? Daily update is boolean (true / false).")
     private boolean dailyUpdate;
 
     /**
@@ -16,9 +26,8 @@ public class Contact {
 
     /**
      * Constructor that will be called to create the new instance with parameters.
-     * Parameters: email, dailyUpdate
      * Sets all values of object to new instance values
-     * Return: None
+     * @param dailyUpdate, email
      */
     public Contact(String email, Boolean dailyUpdate) {
         this.email = email;
@@ -27,8 +36,7 @@ public class Contact {
 
     /**
      * Setter for dailyUpdate in object
-     * Parameters: Boolean
-     * Return: None
+     * @param dailyUpdate
      */
     public void setDailyUpdate(boolean dailyUpdate) {
         this.dailyUpdate = dailyUpdate;
@@ -36,8 +44,7 @@ public class Contact {
 
     /**
      * Setter for email in object
-     * Parameters: String
-     * Return: None
+     * @param email
      */
     public void setEmail(String email) {
         this.email = email;
@@ -45,8 +52,7 @@ public class Contact {
 
     /**
      * Getter for email in object
-     * Parameters: None
-     * Return: String
+     * @return email as a String
      */
     public String getEmail() {
         return email;
@@ -54,11 +60,9 @@ public class Contact {
 
     /**
      * Getter for dailyUpdate in object
-     * Parameters: None
-     * Return: boolean
+     * @return dailyUpdate as a boolean
      */
     public boolean isDailyUpdate() {
         return dailyUpdate;
     }
-    public String getId() {return id;}
 }

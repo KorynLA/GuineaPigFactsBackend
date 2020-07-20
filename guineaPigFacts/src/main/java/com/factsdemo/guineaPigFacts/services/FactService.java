@@ -1,35 +1,34 @@
 package com.factsdemo.guineaPigFacts.services;
 
 import com.factsdemo.guineaPigFacts.models.Fact;
-import com.factsdemo.guineaPigFacts.repositories.FactRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
-/***
- * Implements the business logic needed for the Fact part of the API.
- * Calls a FactRepository object which will run the data access calls.
- */
-@Service
-public class FactService {
-    @Autowired
-    private FactRepository factRepository;
+public interface FactService {
+    /**
+     * Deletes a Fact based on the id provided. Nothing is returned.
+     * @param id as a String
+     */
+    public void delete(String id);
 
-    void deleteFact(Fact fact){
-        factRepository.delete(fact);
-    }
+    /**
+     * Updates or creates a new Fact based on the Fact provided. Nothing is returned
+     * @param fact as a Fact object
+     */
+    public void saveFact(Fact fact);
 
-    void saveOrUpdateFact(Fact fact){
-        factRepository.save(fact);
-    }
+    /**
+     * Returns all of the facts that are in the database.
+     * @return Fact objects in a List
+     */
+    public List<Fact> findAll();
 
-    Optional<Fact> findAll(){
-        return factRepository.findAllOrderByDateCreated();
-    }
-
-    public Optional<Fact> findById(String id) {
-        return factRepository.findById(id);
-    }
+    /**
+     * Returns the Fact object or null of a given String id.
+     * @param id as a String
+     * @return Fact or null
+     */
+    public Optional<Fact> findById(String id);
 
 }
