@@ -70,7 +70,7 @@ public class FactController {
      */
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable("id") String id, @Valid @RequestBody Fact updatedFact) {
-        factService.findById(id).orElseThrow(() -> new IdNotFoundException(id, "fact"));
+        factService.findById(id).orElseThrow(() -> new IdNotFoundException(id, "Fact"));
         updatedFact.setId(id);
         factService.saveFact(updatedFact);
         return new ResponseEntity<Fact>(updatedFact, HttpStatus.OK);
