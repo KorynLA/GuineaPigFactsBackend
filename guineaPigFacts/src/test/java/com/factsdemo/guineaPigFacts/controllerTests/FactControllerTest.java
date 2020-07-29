@@ -67,8 +67,9 @@ public class FactControllerTest {
             e.printStackTrace();
         }
     }
-    /*
-    * Get controller test '/fact/'
+
+    /**
+     * Get controller test '/fact/' with a mocked database of 1 value
      */
     @Test
     public void getBackslashControllerTest_ShouldReturnStatusOk() throws Exception {
@@ -79,8 +80,9 @@ public class FactControllerTest {
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].factValue", is(factArray.get(0).getFactValue())));
     }
-    /*
-     * Get controller test '/fact/home'
+
+    /**
+     * Get controller test '/fact/home' with a mocked database of 1 value
      */
     @Test
     public void getHomeControllerTest_ShouldReturnStatusOk() throws Exception {
@@ -91,8 +93,9 @@ public class FactControllerTest {
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].factValue", is(factArray.get(0).getFactValue())));
     }
-    /*
-     * Get controller test '/fact'
+
+    /**
+     * Get controller test '/fact' with a mocked database of 1 value
      */
     @Test
     public void getControllerTest_ShouldReturnStatusOk() throws Exception {
@@ -103,6 +106,10 @@ public class FactControllerTest {
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].factValue", is(factArray.get(0).getFactValue())));
     }
+
+    /**
+     * Get controller test '/fact/' with a mocked database no values
+     */
     @Test
     public void getEmptyControllerTest_ShouldReturnStatusOk() throws Exception {
         List<Fact> emptyFactList = new ArrayList<Fact>();
@@ -112,8 +119,9 @@ public class FactControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(0)));
     }
-    /*
-     * Get controller test '/{id}' with good id
+
+    /**
+     * Get controller test '/fact/{id}' with an Id that is mocked to exist
      */
     @Test
     public void getGoodIdControllerTest_ShouldReturnStatusOk() throws Exception {
@@ -123,8 +131,9 @@ public class FactControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.factValue", is(fact.getFactValue())));
     }
-    /*
-     * Get controller test '/{id}' with bad id
+
+    /**
+     * Get controller test '/fact/{id}' with a Id that is mocked to not exist
      */
     @Test
     public void getInvalidIdControllerTest_ShouldReturnIdIsNotFound() throws Exception {
@@ -134,8 +143,9 @@ public class FactControllerTest {
                 .andReturn();
         assertEquals(mvcResult.getResponse().getContentAsString(), errorMessage);
     }
-    /*
-     * Post controller test '/'
+
+    /**
+     * Post controller test '/fact/' with a Fact object that fits all variable validation criteria
      */
     @Test
     public void postControllerTest_ShouldReturnStatusCreated() throws Exception {
@@ -146,8 +156,9 @@ public class FactControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").exists());
     }
-    /*
-     * Post controller test '/'
+
+    /**
+     * Post controller test '/fact/' with a Fact object that doesn't fit all variable validation criteria
      */
     @Test
     public void postInvalidBodyControllerTest_ShouldReturnIsBadRequest() throws Exception {
@@ -157,8 +168,9 @@ public class FactControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
-    /*
-     * Delete controller test '/{id}'
+
+    /**
+     * Delete controller test '/fact/{id}' with an Id that is mocked to exist
      */
     @Test
     public void deleteControllerTest_ShouldReturnStatusOk() throws Exception {
@@ -169,8 +181,9 @@ public class FactControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
-    /*
-     * Delete controller test '/{id}'
+
+    /**
+     * Delete controller test '/fact/{id}' with an Id that is mocked to not exist
      */
     @Test
     public void deleteInvalidIdControllerTest_ShouldReturnIdIsNotFound() throws Exception {
@@ -180,8 +193,9 @@ public class FactControllerTest {
                 .andReturn();
         assertEquals(mvcResult.getResponse().getContentAsString(), errorMessage);
     }
-    /*
-     * Put controller test '/{id}'
+
+    /**
+     * Put controller test '/fact/{id}' with an Id that is mocked to exist
      */
     @Test
     public void putControllerTest_ShouldReturnStatusOk() throws Exception {
@@ -200,8 +214,9 @@ public class FactControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.factValue").value(goodFactValue))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.approved").value("true"));
     }
-    /*
-     * Put controller test '/{id}'
+
+    /**
+     * Put controller test '/fact/{id}' with an Id that is mocked to not exist
      */
     @Test
     public void putInvalidIdControllerTest_ShouldReturnIdIsNotFound() throws Exception {
@@ -212,8 +227,9 @@ public class FactControllerTest {
                 .andReturn();
         assertEquals(mvcResult.getResponse().getContentAsString(), errorMessage);
     }
-    /*
-     * Put controller test '/{id}'
+
+    /**
+     * Put controller test '/user/{id}' with an Id that is mocked to exist but an invalid Fact object
      */
     @Test
     public void putInvalidBodyControllerTest_ShouldReturnIsBadRequest() throws Exception {

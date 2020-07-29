@@ -61,18 +61,10 @@ public class UserControllerTest {
         goodUser = new User(goodUserName, goodUserPassword, goodContact);
         goodUser.setId(goodUserId);
         badUser = new User(badUserName, badUserPassword, goodContact);
-/**        factAsJsonString = "";
-        badFactAsJsonString = "";
-        try {
-            factAsJsonString = new ObjectMapper().writeValueAsString(fact);
-            badFactAsJsonString = new ObjectMapper().writeValueAsString(badFact);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
- **/
     }
-    /*
-     * Get controller test '/user/'
+
+    /**
+     * Get controller test '/user/{id}' with a userId that is mocked to exist
      */
     @Test
     public void getByIdControllerTest_ShouldReturnStatusOk() throws Exception {
@@ -82,8 +74,9 @@ public class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.userName").value(goodUser.getUserName()));
     }
-    /*
-     * Get controller test '/user/'
+
+    /**
+     * Get controller test '/user/{id}' with a userId that is mocked to not exist
      */
     @Test
     public void getByInvalidIdControllerTest_ShouldReturnIdNotFound() throws Exception {
@@ -93,8 +86,9 @@ public class UserControllerTest {
                 .andReturn();
         assertEquals(mvcResult.getResponse().getContentAsString(), errorMessageId);
     }
-    /*
-     * Delete controller test '/{id}'
+
+    /**
+     * Delete controller test '/user/{id}' with a userId that is mocked to exist
      */
     @Test
     public void deleteControllerTest_ShouldReturnStatusOk() throws Exception {
@@ -105,8 +99,9 @@ public class UserControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
-    /*
-     * Delete controller test '/{id}'
+
+    /**
+     * Delete controller test '/user/{id}' with a userId that is mocked to not exist
      */
     @Test
     public void deleteInvalidIdControllerTest_ShouldReturnIdIsNotFound() throws Exception {
@@ -116,8 +111,9 @@ public class UserControllerTest {
                 .andReturn();
         assertEquals(mvcResult.getResponse().getContentAsString(), errorMessageId);
     }
-    /*
-     * Post controller test '/'
+
+    /**
+     * Post controller test '/user/' with a User object that fits all variable validation criteria
      */
     @Test
     public void postControllerTest_ShouldReturnStatusCreated() throws Exception {
@@ -130,8 +126,9 @@ public class UserControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").exists());
     }
-    /*
-     * Post controller test '/'
+
+    /**
+     * Post controller test '/user/' with a User object that contains an email already in the database
      */
     @Test
     public void postDuplicateEmailControllerTest_ShouldReturnUserFound() throws Exception {
@@ -147,8 +144,9 @@ public class UserControllerTest {
                 .andReturn();
         assertEquals(mvcResult.getResponse().getContentAsString(), errorMessageUserEmail);
     }
-    /*
-     * Post controller test '/'
+
+    /**
+     * Post controller test '/user/' with a User object that contains a username already in the database
      */
     @Test
     public void postDuplicateUserNameControllerTest_ShouldReturnUserFound() throws Exception {
@@ -164,8 +162,9 @@ public class UserControllerTest {
                 .andReturn();
         assertEquals(mvcResult.getResponse().getContentAsString(), errorMessageUserName);
     }
-    /*
-     * Post controller test '/'
+
+    /**
+     * Post controller test '/user/' with a User object that doesn't fit all valid variable criteria
      */
     @Test
     public void postInvalidBodyControllerTest_ShouldReturnBadRequest() throws Exception {
@@ -177,8 +176,9 @@ public class UserControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
-    /*
-     * Put controller test '/{id}'
+
+    /**
+     * Put controller test '/user/{id}' with a userId that is mocked to exist
      */
     @Test
     public void putControllerTest_ShouldReturnStatusOk() throws Exception {
@@ -195,8 +195,9 @@ public class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.contactInfo.email").value(goodUserEmail))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.contactInfo.dailyUpdate").value(dailyUpdate));
     }
-    /*
-     * Put controller test '/{id}'
+
+    /**
+     * Put controller test '/user/{id}' with a userId that is mocked to not exist
      */
     @Test
     public void putInvalidIdControllerTest_ShouldReturnIdIsNotFound() throws Exception {
@@ -208,11 +209,13 @@ public class UserControllerTest {
                 .andReturn();
         assertEquals(mvcResult.getResponse().getContentAsString(), errorMessageId);
     }
-    /*
-     * Put controller test '/{id}'
+
+    /**
+     * Put controller test '/user/' with a User object that doesn't fit all valid variable criteria
      */
     @Test
     public void putInvalidBodyControllerTest_ShouldReturnIsBadRequest() throws Exception {
+        Mockito.when(userService.findById(goodUserId)).thenReturn(java.util.Optional.ofNullable(goodUser));
         String newUserAsJsonString = new ObjectMapper().writeValueAsString(badUser);
         mockMvc.perform(put("/user/{id}", goodUserId)
                 .content(newUserAsJsonString)
