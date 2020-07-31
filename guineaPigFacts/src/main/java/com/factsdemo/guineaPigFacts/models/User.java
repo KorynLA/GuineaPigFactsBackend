@@ -92,4 +92,10 @@ public class User {
     public void setId(String id) {
         this.id = id;
     }
+
+    /**
+     * Getter for Id in object
+     * @return id as String
+     */
+    public String getId() { return id; }
 }
