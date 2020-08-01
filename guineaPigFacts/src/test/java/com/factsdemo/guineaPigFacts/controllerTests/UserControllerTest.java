@@ -191,7 +191,6 @@ public class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(goodUserId))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.userName").value("newTestUsername"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.password").value(goodUserPassword))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.contactInfo.email").value(goodUserEmail))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.contactInfo.dailyUpdate").value(dailyUpdate));
     }
