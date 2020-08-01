@@ -95,6 +95,7 @@ public class UserController {
     ResponseEntity<?> replaceUser(@PathVariable("id") String id, @Valid @RequestBody User updatedUser) {
         userService.findById(id).orElseThrow(() -> new IdNotFoundException(id, "User"));
         User user = userService.updateUser(id, updatedUser);
+        user.setId(id);
         JSONObject safeUser = getSafeUser(user);
         return new ResponseEntity<JSONObject>(safeUser, HttpStatus.OK);
     }
