@@ -1,5 +1,7 @@
 # Guinea Pig Facts
 An API that allows users to create an account, add a guinea pig fact, and opt in to receive weekly facts. 
+<br>
+[![Build Status](https://travis-ci.com/KorynLA/GuineaPigFactsBackend.svg?branch=master)](https://travis-ci.com/KorynLA/GuineaPigFactsBackend)
 ## Table of Contents
    * [Getting Started](#gettingStarted)
    * [Deployment](#deployment)
