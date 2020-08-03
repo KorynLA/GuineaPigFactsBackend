@@ -58,8 +58,8 @@ public class UserServiceTest {
      * Test to verify user is saved once
      */
     @Test
-    public void userSaveOrUpdateTest() {
-        userService.saveOrUpdateUser(user);
+    public void userSaveTest() {
+        userService.saveUser(user);
         Mockito.verify(userRepository, Mockito.times(1)).save(user);
     }
 

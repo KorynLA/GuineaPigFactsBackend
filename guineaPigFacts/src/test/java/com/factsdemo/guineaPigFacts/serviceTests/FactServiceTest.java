@@ -47,9 +47,9 @@ public class FactServiceTest {
 
     @Before
     public void setup() {
-        fact1 = new Fact(factVal1, approved, date);
+        fact1 = new Fact(factVal1, approved);
         fact1.setId(idVal1);
-        fact2 = new Fact(factVal2, approved, date);
+        fact2 = new Fact(factVal2, approved);
         fact2.setId(idVal2);
         facts.add(fact1);
         facts.add(fact2);
@@ -59,8 +59,8 @@ public class FactServiceTest {
      * Test to verify fact is saved
      */
     @Test
-    public void factSaveOrUpdateTest() {
-        factService.saveOrUpdateFact(fact1);
+    public void factSaveTest() {
+        factService.saveFact(fact1);
         Mockito.verify(factRepository, Mockito.times(1)).save(fact1);
     }
 
