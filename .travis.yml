@@ -1,3 +1,5 @@
-before_install: cd guineaPigFacts
+before_install:
+  - cd guineaPigFacts
+  - chmod +x mvnw
 language: java
  - oraclejdk8
