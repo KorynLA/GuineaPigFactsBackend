@@ -30,29 +30,16 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    /**
-     * Parses User so the password is not also returned as an HTTP response. Uses all other parts of
-     * User to create the object to be sent.
-     * @param user
-     * @return JSONObject
-     */
-    private JSONObject getSafeUser(User user) {
-        JSONObject safeUser = new JSONObject();
-        safeUser.put("id", user.getId());
-        safeUser.put("userName", user.getUserName());
-        safeUser.put("contactInfo", user.getContactInfo());
-        return safeUser;
-    }
+
     /**
      * Retrieves user with the ID passed in the URL path
      * @param id
      * @return JSON object
      */
     @GetMapping("/{id}")
-    JSONObject getCurrentUser(@PathVariable("id") String id) {
+    User getCurrentUser(@PathVariable("id") String id) {
         User user = userService.findById(id).orElseThrow(() -> new IdNotFoundException(id, "User"));
-        JSONObject safeUser = getSafeUser(user);
-        return safeUser;
+        return user;
     }
 
     /**
@@ -69,8 +56,7 @@ public class UserController {
             throw new UserFoundException("username", user.getUserName());
         }
         userService.saveUser(user);
-        JSONObject safeUser = getSafeUser(user);
-        return new ResponseEntity<JSONObject>(safeUser, HttpStatus.CREATED);
+        return new ResponseEntity<User>(user, HttpStatus.CREATED);
     }
 
     /**
@@ -95,8 +81,7 @@ public class UserController {
     ResponseEntity<?> replaceUser(@PathVariable("id") String id, @Valid @RequestBody User updatedUser) {
         userService.findById(id).orElseThrow(() -> new IdNotFoundException(id, "User"));
         userService.updateUser(id, updatedUser);
-        JSONObject safeUser = getSafeUser(updatedUser);
-        return new ResponseEntity<JSONObject>(safeUser, HttpStatus.OK);
+        return new ResponseEntity<User>(updatedUser, HttpStatus.OK);
     }
 
 }
