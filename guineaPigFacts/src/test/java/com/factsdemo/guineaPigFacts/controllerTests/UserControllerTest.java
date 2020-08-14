@@ -76,6 +76,18 @@ public class UserControllerTest {
     }
 
     /**
+     * Get controller test '/user/{id}' with a userId that is mocked to exist
+     * Verifies that password does not exist
+     */
+    @Test
+    public void getByIdPasswordControllerTest_ShouldReturnPasswordDoesNotExist() throws Exception {
+        when(userService.findById(goodUserId)).thenReturn(java.util.Optional.ofNullable(goodUser));
+        mockMvc.perform(get("/user/{id}", goodUserId)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.password").doesNotExist());
+    }
+    /**
      * Get controller test '/user/{id}' with a userId that is mocked to not exist
      */
     @Test
@@ -125,6 +137,21 @@ public class UserControllerTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").exists());
+    }
+    /**
+     * Post controller test '/user/' with a User object that fits all variable validation criteria
+     * Tests that Password does not exist
+     */
+    @Test
+    public void postPasswordControllerTest_ShouldReturnDoesNotExist() throws Exception {
+        String userAsJsonString = new ObjectMapper().writeValueAsString(goodUser);
+
+        mockMvc.perform(post("/user/")
+                .content(userAsJsonString)
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.password").doesNotExist());
     }
 
     /**
@@ -191,11 +218,25 @@ public class UserControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(goodUserId))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.userName").value("newTestUsername"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.password").value(goodUserPassword))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.contactInfo.email").value(goodUserEmail))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.contactInfo.dailyUpdate").value(dailyUpdate));
     }
 
+    /**
+     * Put controller test '/user/{id}' with a userId that is mocked to exist, checks that password does
+     * not exist
+     */
+    @Test
+    public void putPasswordControllerTest_ShouldReturnPasswordDoesNotExist() throws Exception {
+        Mockito.when(userService.findById(goodUserId)).thenReturn(java.util.Optional.ofNullable(goodUser));
+        goodUser.setUserName("newTestUsername");
+        String newUserAsJsonString = new ObjectMapper().writeValueAsString(goodUser);
+        mockMvc.perform(put("/user/{id}", goodUserId)
+                .content(newUserAsJsonString)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.password").doesNotExist());
+    }
     /**
      * Put controller test '/user/{id}' with a userId that is mocked to not exist
      */
