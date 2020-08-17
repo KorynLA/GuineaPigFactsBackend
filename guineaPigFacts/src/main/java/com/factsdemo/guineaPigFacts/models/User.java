@@ -1,5 +1,7 @@
 package com.factsdemo.guineaPigFacts.models;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -8,6 +10,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Model for the User document.
@@ -18,6 +22,7 @@ public class User {
     @Id
     @Pattern(regexp = "^[0-9a-fA-F]{24}$", message = "Id provided is not viable. Needs to be longer.")
     private String id;
+    private List<String> role;
     @NotEmpty
     @Size(min = 4, max = 20)
     @Pattern(regexp = "^[a-zA-Z0-9_]*$", message = "Username provided does not meet standards. Username should have between 4-20 characters and only allows letters, numbers, and underscores.")
@@ -41,10 +46,13 @@ public class User {
      * @param userName, password, contactInfo, factGiven
      * Sets all values of object to new instance values
      */
-    public User(String userName, String password, Contact contactInfo) {
+    @JsonCreator
+    public User(@JsonProperty("userName") String userName, @JsonProperty("password") String password, @JsonProperty("contactInfo") Contact contactInfo) {
         this.userName = userName;
         this.password = password;
         this.contactInfo = contactInfo;
+        role = new ArrayList<String>();
+        role.add("user");
     }
 
     /**
