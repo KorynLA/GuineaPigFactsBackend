@@ -1,10 +1,8 @@
-package com.factsdemo.guineaPigFacts.filters;
+package com.factsdemo.guineaPigFacts.generalFilters;
 
-import com.factsdemo.guineaPigFacts.models.User;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import net.minidev.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;

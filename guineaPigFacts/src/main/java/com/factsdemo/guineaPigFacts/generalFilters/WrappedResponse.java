@@ -1,4 +1,4 @@
-package com.factsdemo.guineaPigFacts.filters;
+package com.factsdemo.guineaPigFacts.generalFilters;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
