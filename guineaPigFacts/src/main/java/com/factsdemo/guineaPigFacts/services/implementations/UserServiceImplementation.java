@@ -3,6 +3,7 @@ package com.factsdemo.guineaPigFacts.services.implementations;
 import com.factsdemo.guineaPigFacts.models.User;
 import com.factsdemo.guineaPigFacts.repositories.UserRepository;
 import com.factsdemo.guineaPigFacts.services.UserService;
+import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,8 @@ public class UserServiceImplementation implements UserService {
     }
 
     public void saveUser(User user) {
+        BasicPasswordEncryptor passwordEncoder = new BasicPasswordEncryptor();
+        user.setPassword(passwordEncoder.encryptPassword(user.getPassword()));
         userRepository.save(user);
     }
 
@@ -48,10 +51,11 @@ public class UserServiceImplementation implements UserService {
     }
 
     public User updateUser(String id, User newUser) {
+        BasicPasswordEncryptor passwordEncoder = new BasicPasswordEncryptor();
         userRepository.findById(id)
                 .map(user -> {
                     user.setUserName(newUser.getUserName());
-                    user.setPassword(newUser.getPassword());
+                    user.setPassword(passwordEncoder.encryptPassword(newUser.getPassword()));
                     user.getContactInfo().setEmail(newUser.getContactInfo().getEmail());
                     user.getContactInfo().setDailyUpdate(newUser.getContactInfo().isDailyUpdate());
                     return userRepository.save(user);
