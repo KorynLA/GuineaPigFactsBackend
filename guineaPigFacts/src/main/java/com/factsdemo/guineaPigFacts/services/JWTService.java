@@ -1,5 +1,7 @@
 package com.factsdemo.guineaPigFacts.services;
 
+import com.factsdemo.guineaPigFacts.models.User;
+
 /**
  * Class that creates the JWTs that will be given to the client after they are authenticated
  * 3 parts to a JWT: header (algorithm used), body(claims), signature(combination of header & body through
@@ -7,4 +9,8 @@ package com.factsdemo.guineaPigFacts.services;
  *
  */
 public interface JWTService {
+    public String generateJWT(User user);
+    //Need to parse JWT to verify it is a good token provided by client
+    //Need to parse JWT to find associated user authorization
+    //Need to parse JWT to find if token is still valid (time wise)
 }
