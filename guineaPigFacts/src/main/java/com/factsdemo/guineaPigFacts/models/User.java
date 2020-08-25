@@ -106,4 +106,9 @@ public class User {
      * @return id as String
      */
     public String getId() { return id; }
+    /**
+     * Getter for role in object
+     * @return role as String
+     */
+    public List<String> getRole() { return role; }
 }
