@@ -1,6 +1,9 @@
 package com.factsdemo.guineaPigFacts.config;
 
+import com.factsdemo.guineaPigFacts.securityFilters.AuthenticationFilter;
+import com.factsdemo.guineaPigFacts.securityFilters.AuthorizationFilter;
 import com.factsdemo.guineaPigFacts.services.UserService;
+import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +20,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    UserService userService;
+    UserDetailsServiceImplementation userDetailsService;
 
     /**
      * Allows non-logged in users to view all fact URLS and to send a POST request to /user/
@@ -30,23 +33,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/fact", "/fact/", "/fact/home").permitAll()
+                .antMatchers("/fact", "/fact/home").permitAll()
                 .antMatchers(HttpMethod.POST,"/user/").permitAll()
                 .antMatchers(HttpMethod.PUT, "/fact/").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/fact/").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/fact/all").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
+                .addFilter(new AuthenticationFilter(authenticationManager()))
+                .addFilter(new AuthorizationFilter(authenticationManager()))
                 .formLogin()
                 .loginPage("/user/")
-                .permitAll()
-                .and()
-                .logout()
                 .permitAll()
                 .and()
                 .sessionManagement().disable();;
     }
     @Override
     public void configure(AuthenticationManagerBuilder builder) throws Exception {
+        builder.userDetailsService(userDetailsService);
     }
 }
